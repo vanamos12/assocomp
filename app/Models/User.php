@@ -18,6 +18,10 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    const DEFAULT = 1;
+    const MODERATOR = 2;
+    const ADMIN = 3;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -27,6 +31,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'slug',
+        'username',
+        'bio',
     ];
 
     /**
