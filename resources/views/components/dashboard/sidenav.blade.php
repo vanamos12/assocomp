@@ -8,13 +8,13 @@
             <div>
                 <x-sidenav.link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     <x-zondicon-user class="w-3 text-green-400" />
-                    <span>{{ __('Profile') }}</span>
+                    <span>{{ __('Profil') }}</span>
                 </x-sidenav.link>
             </div>
             <div>
                 <x-sidenav.link href="{{ route('users') }}" :active="request()->routeIs('users')">
                     <x-zondicon-user-group class="w-3 text-green-400" />
-                    <span>{{ __('Users') }}</span>
+                    <span>{{ __('Utilisateurs') }}</span>
                 </x-sidenav.link>
             </div>
         </div>
@@ -63,7 +63,7 @@
 
                     <x-sidenav.link href="{{ route('logout') }}" onclick="event.preventDefault();                                               this.closest('form').submit();">
                         <x-heroicon-o-logout class="w-4 text-green-400" />
-                        <span>{{ __('Logout') }}</span>
+                        <span>{{ __('Deconnexion') }}</span>
                     </x-sidenav.link>
 
                 </form>

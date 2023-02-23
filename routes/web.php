@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Pages\HomeController;
 
 /*
@@ -15,13 +16,18 @@ use App\Http\Controllers\Pages\HomeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', function(){
+    return redirect()->route('login');
+})->name('home');
 
 Route::get('/category/discussion/topic', [PageController::class, 'single'])->name('single');
 
 Route::get('discussion/create', [PageController::class, 'create'])->name('create');
 
 Route::get('dashboard/users', [PageController::class, 'users'])->name('users');
+
+Route::get('dashboard/users/create', [UserController::class, 'create'])->name('users.create');
+Route::post('dashboard/users/store', [UserController::class, 'store'])->name('users.store');
 
 Route::get('/dashboard/categories/index', [PageController::class, 'categoriesIndex'])->name('categories.index');
 Route::get('/dashboard/categories/create', [PageController::class, 'categoriesCreate'])->name('categories.create');

@@ -2,9 +2,15 @@
 
     {{-- Header --}}
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight">
-            {{ __('Users') }}
-        </h2>
+        <div class="flex flex-row justify-between px-3 items-center">
+            <h2 class="text-xl font-semibold leading-tight">
+                {{ __('Utilisateurs') }}
+            </h2>
+
+            <a href="{{route('users.create')}}"
+                class="bg-green-800 rounded-lg py-2 px-4 text-white"
+            >{{ __('Nouveau Membre')}}</a>
+        </div>
     </x-slot>
 
     <section class="px-6">

@@ -22,6 +22,7 @@ class UserTableSeeder extends Seeder
             'slug' => 'admin',
             'fonction' => 0,
             'email' => 'admin@example.com',
+            'canconnect' => true,
             'password' => bcrypt('password'),
             'type' => User::ADMIN,
         ]);
@@ -32,6 +33,7 @@ class UserTableSeeder extends Seeder
             'slug' => 'john-doe',
             'fonction' => 6,
             'email' => 'john@example.com',
+            'canconnect' => true,
             'password' => bcrypt('password'),
             'type' => User::DEFAULT,
         ]);
@@ -42,6 +44,7 @@ class UserTableSeeder extends Seeder
             'slug' => 'maya-doe',
             'fonction' => 6,
             'email' => 'maya@example.com',
+            'canconnect' => true,
             'password' => bcrypt('password'),
             'type' => User::DEFAULT,
         ]);

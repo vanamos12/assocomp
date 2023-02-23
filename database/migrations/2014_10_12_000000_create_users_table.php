@@ -19,8 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique()->default('');
             $table->string('slug');
             $table->integer('fonction')->default(6);
-            $table->text('bio', 160)->default('');
+            $table->text('bio')->default('');
             $table->string('email')->unique();
+            $table->boolean('canconnect')->default(false);
             $table->smallInteger('type')->default('1');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

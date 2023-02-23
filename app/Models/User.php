@@ -22,6 +22,16 @@ class User extends Authenticatable
     const MODERATOR = 2;
     const ADMIN = 3;
 
+    const FONCTION  = [
+        'President',
+        'Vice President',
+        'Secretaire General',
+        'Tresorier',
+        'Commissaire au Compte',
+        'Censeur',
+        'Membre'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
