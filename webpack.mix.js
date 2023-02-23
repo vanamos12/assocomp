@@ -16,8 +16,6 @@ mix.js('resources/js/app.js', 'public/js')
         require('postcss-import'),
         require('tailwindcss'),
     ]);
-mix.copy('resources/js/autocomplete.min.js', 'public/js');
-mix.copy('resources/css/autocomplete.min.css', 'public/css');
 
 if (mix.inProduction()) {
     mix.version();
