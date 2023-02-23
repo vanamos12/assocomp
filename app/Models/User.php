@@ -41,6 +41,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'fonction',
         'slug',
         'username',
         'bio',
@@ -75,4 +76,24 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function name():string{
+        return $this->name;
+    }
+
+    public function username():string{
+        return $this->username;
+    }
+
+    public function fonction():int{
+        return $this->fonction;
+    }
+
+    public function email():string{
+        return $this->email;
+    }
+
+    public function bio():string{
+        return $this->bio;
+    }
 }

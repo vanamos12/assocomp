@@ -24,7 +24,7 @@ Route::get('/category/discussion/topic', [PageController::class, 'single'])->nam
 
 Route::get('discussion/create', [PageController::class, 'create'])->name('create');
 
-Route::get('dashboard/users', [PageController::class, 'users'])->name('users');
+Route::get('dashboard/users', [UserController::class, 'users'])->name('users');
 
 Route::get('dashboard/users/create', [UserController::class, 'create'])->name('users.create');
 Route::post('dashboard/users/store', [UserController::class, 'store'])->name('users.store');

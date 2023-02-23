@@ -2,6 +2,16 @@
 
     {{-- Header --}}
     <x-slot name="header">
+        
+        {{-- Search Topic --}}
+        <div class="flex items-center flex-grow mb-5">
+
+            <div class="p-2 text-white bg-blue-200 border rounded-l">
+                <x-heroicon-o-search class="w-6 h-6" />
+            </div>
+            <input type="search" name="" id="search-user" class="w-full border-none rounded-r shadow-inner bg-blue-50 focus:ring-blue-200" placeholder="Search by username">
+        </div>
+
         <div class="flex flex-row justify-between px-3 items-center">
             <h2 class="text-xl font-semibold leading-tight">
                 {{ __('Utilisateurs') }}
@@ -11,6 +21,8 @@
                 class="bg-green-800 rounded-lg py-2 px-4 text-white"
             >{{ __('Nouveau Membre')}}</a>
         </div>
+
+        
     </x-slot>
 
     <section class="px-6">
@@ -19,38 +31,63 @@
                 <thead class="bg-blue-500">
                     <tr>
                         <x-table.head>Name</x-table.head>
+                        <x-table.head>Username</x-table.head>
                         <x-table.head>Bio</x-table.head>
-                        <x-table.head>Birthday</x-table.head>
-                        <x-table.head class="text-center">Role</x-table.head>
-                        <x-table.head class="text-center">Joined Date</x-table.head>
+                        <x-table.head class="text-center">Fonction</x-table.head>
                     </tr>
                 </thead>
 
                 <tbody class="divide-y divide-gray-200 divide-solid">
-                    <tr>
-                        <x-table.data>
-                            <div>John Doe</div>
-                        </x-table.data>
-                        <x-table.data>
-                            <div>Some description of bio....</div>
-                        </x-table.data>
-                        <x-table.data>
-                            <div>date</div>
-                        </x-table.data>
-                        <x-table.data>
-                            <div class="px-2 py-1 text-center text-gray-700 bg-green-200 rounded">
-                                Moderator
-                            </div>
-                        </x-table.data>
-                        <x-table.data>
-                            <div class="text-center">2005-14-06</div>
-                        </x-table.data>
-                    </tr>
+                    @foreach($users as $key => $user)
+                       <tr>
+                            <x-table.data>
+                                <div>{{ $user->name()}}</div>
+                            </x-table.data>
+                            <x-table.data>
+                                <div>{{ $user->username()}}</div>
+                            </x-table.data>
+                            <x-table.data>
+                                <div>{{ $user->bio()}}</div>
+                            </x-table.data>
+                            <x-table.data>
+                                <div class="px-2 py-1 text-center text-gray-700 bg-green-200 rounded">
+                                    {{ $fonctions[$user->fonction()]}}
+                                </div>
+                            </x-table.data>
+                        </tr> 
+                    @endforeach
+                    
                 </tbody>
 
             </table>
         </div>
     </section>
 
+    <script>
+    
+        /*const projects = [
+        {
+            value: "jquery",
+            label: "jQuery",
+            desc: "the write less, do more, JavaScript library",
+            icon: "jquery_32x32.png"
+        },
+        {
+            value: "jquery-ui",
+            label: "jQuery UI",
+            desc: "the official user interface library for jQuery",
+            icon: "jqueryui_32x32.png"
+        },
+        {
+            value: "sizzlejs",
+            label: "Sizzle JS",
+            desc: "a pure-JavaScript CSS selector engine",
+            icon: "sizzlejs_32x32.png"
+        }
+        ];*/
+    
 
+    const projects = {{ \Illuminate\Support\Js::from($labelusers) }};
+
+    </script>
 </x-app-layout>

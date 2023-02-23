@@ -30,8 +30,28 @@ class CreateUserRequest extends FormRequest
             'fonction' => ['required', 'integer'],
             'email' => ['required', 'email'],
             'bio' => ['required', 'min:5'],
-            
+
 
         ];
+    }
+
+    public function name():string{
+        return $this->get('name');
+    }
+
+    public function username():string{
+        return $this->get('username');
+    }
+
+    public function fonction():int{
+        return (int) $this->get('fonction');
+    }
+
+    public function email():string{
+        return $this->get('email');
+    }
+
+    public function bio():string{
+        return $this->get('bio');
     }
 }

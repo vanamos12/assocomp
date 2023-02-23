@@ -2,6 +2,14 @@
 
     {{-- Header --}}
     <x-slot name="header">
+        {{-- Search Topic --}}
+        <div class="flex items-center flex-grow mb-5">
+
+            <div class="p-2 text-white bg-blue-200 border rounded-l">
+                <x-heroicon-o-search class="w-6 h-6" />
+            </div>
+            <input type="search" name="" id="search-user" class="w-full border-none rounded-r shadow-inner bg-blue-50 focus:ring-blue-200" placeholder="Search by username">
+        </div>
         <div class="flex flex-row justify-between px-3 items-center">
             <h2 class="text-xl font-semibold leading-tight">
                 {{ __('Creer Utilisateur') }}
