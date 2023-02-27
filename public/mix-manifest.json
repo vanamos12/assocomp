@@ -1,6 +1,4 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/js/autocomplete.min.js": "/js/autocomplete.min.js",
-    "/css/autocomplete.min.css": "/css/autocomplete.min.css"
+    "/css/app.css": "/css/app.css"
 }

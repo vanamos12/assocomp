@@ -2,24 +2,15 @@
 
     {{-- Header --}}
     <x-slot name="header">
-        
-        {{-- Search Topic --}}
-        <div class="flex items-center flex-grow mb-5">
-
-            <div class="p-2 text-white bg-blue-200 border rounded-l">
-                <x-heroicon-o-search class="w-6 h-6" />
-            </div>
-            <input type="search" name="" id="search-user" class="w-full border-none rounded-r shadow-inner bg-blue-50 focus:ring-blue-200" placeholder="Search by username">
-        </div>
 
         <div class="flex flex-row justify-between px-3 items-center">
             <h2 class="text-xl font-semibold leading-tight">
-                {{ __('Utilisateurs') }}
+                {{ $user->name() }}
             </h2>
 
-            <a href="{{route('users.create')}}"
+            <a href="{{route('payments.create', $user)}}"
                 class="bg-green-800 rounded-lg py-2 px-4 text-white"
-            >{{ __('Nouveau Membre')}}</a>
+            >{{ __('Nouveau Pret')}}</a>
         </div>
 
         
@@ -38,8 +29,8 @@
                 </thead>
 
                 <tbody class="divide-y divide-gray-200 divide-solid">
-                    @foreach($users as $key => $user)
-                       <tr>
+                    @foreach($payments as $key => $payment)
+                       {{--<tr>
                             <x-table.data>
                                 <div>{{ $user->name()}}</div>
                             </x-table.data>
@@ -54,7 +45,7 @@
                                     {{ $fonctions[$user->fonction()]}}
                                 </div>
                             </x-table.data>
-                        </tr> 
+                        </tr> --}}
                     @endforeach
                     
                 </tbody>
@@ -63,11 +54,4 @@
         </div>
     </section>
 
-    <script>
-    
-        
-
-    const projects = {{ \Illuminate\Support\Js::from($labelusers) }};
-
-    </script>
 </x-app-layout>

@@ -12,46 +12,11 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <!--<link rel="stylesheet" href="{{ mix('css/autocomplete.min.css') }}">-->
+    
     @livewireStyles
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
-    
-    <!--<script src="{{ mix('js/autocomplete.min.js') }}" defer></script>-->
-     <script>
-    /*
-    const input = document.getElementById('search-user');
-
-    autocomplete({
-        input: input,
-        emptyMsg: 'Pas de membres trouves.',
-        minLength: 1,
-        fetch: function(text, update) {
-            text = text.toLowerCase();
-            // you can also use AJAX requests instead of preloaded data
-            var suggestions = users.filter(n => n.username.toLowerCase().startsWith(text))
-            update(suggestions);
-        },
-        onSelect: function(item) {
-            input.value = item.username;
-        },
-        render: function(item, currentValue) {
-            const itemElement = document.createElement('a');
-            
-            itemElement.setAttribute('href', `/search/${item.id}`);
-            const innerItemElement = document.createElement('div');
-            innerItemElement.setAttribute('style', 'background-color:white; border-bottom: 2px solid gray; ');
-            innerItemElement.textContent = item.username;
-            itemElement.appendChild(innerItemElement);
-            return itemElement;
-        }
-    });
-
-*/
-
-    </script>
-
 
 </head>
 <body class="font-sans antialiased">
@@ -111,16 +76,13 @@
       },
       select: function( event, ui ) {
         $( "#search-user" ).val( ui.item.label );
-        /*$( "#project-id" ).val( ui.item.value );
-        $( "#project-description" ).html( ui.item.desc );
-        $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );*/
- 
+        
         return false;
       }
     })
     .autocomplete( "instance" )._renderItem = function( ul, item ) {
-      return $( "<li>" )
-        .append( "<div>" + item.label + "</div>" )
+      return $( "<li style='background-color:white;border-bottom:2px solid lightgray;'>" )
+        .append( `<a href="/dashboard/payments/${item.label}"><div>${item.label}</div></a>` )
         .appendTo( ul );
     };
   } );

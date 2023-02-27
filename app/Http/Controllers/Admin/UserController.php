@@ -13,7 +13,12 @@ class UserController extends Controller
     //
     public function create(){
         $fonctions = User::FONCTION;
-        return view('admin.users.create', compact('fonctions'));
+        $users = User::where('canconnect', false)->get();
+        $labelusers = [];
+        foreach($users as $user){
+            $labelusers[] = ['label' => $user->username, 'value'=> $user->id];
+        }
+        return view('admin.users.create', compact('fonctions', 'labelusers'));
     }
 
     public function users()

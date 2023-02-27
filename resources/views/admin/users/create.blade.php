@@ -72,5 +72,7 @@
         </div>
     </section>
 
-
+    <script>
+        const projects = {{ \Illuminate\Support\Js::from($labelusers) }};
+    </script>
 </x-app-layout>
