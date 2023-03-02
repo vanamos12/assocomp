@@ -26,7 +26,7 @@
     </x-slot>
 
     <section class="px-6">
-        <div class="overflow-hidden border-b border-gray-200">
+        <div class="overflow-scroll border-b border-gray-200">
             <table class="min-w-full">
                 <thead class="bg-blue-500">
                     <tr>

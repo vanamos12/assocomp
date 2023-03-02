@@ -13,13 +13,13 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                        {{ __('Home') }}
+                    <x-jet-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('home')">
+                        {{ __('Profil') }}
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('dashboard')">
+                        {{ __('Utilisateurs') }}
                     </x-jet-nav-link>
                 </div>
             </div>

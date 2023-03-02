@@ -50,7 +50,7 @@ class CreatePaymentJob implements ShouldQueue
         $amount = (int) $request->get('amount');
         $tab = Utils::calculatePayment($dateCreation, $amount);
         $nextPaymentLimit = $tab['nextPaymentLimit'];
-        $total = $tab['total'];
+        $total = $amount + $tab['totalInterest'];
 
         return new Static(
             $user,

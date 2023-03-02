@@ -17,7 +17,7 @@
     </x-slot>
 
     <section class="px-6">
-        <div class="overflow-hidden border-b border-gray-200">
+        <div class="overflow-scroll border-b border-gray-200">
             <table class="min-w-full">
                 <thead class="bg-blue-500">
                     <tr>
@@ -25,6 +25,7 @@
                         <x-table.head>Date de Contraction</x-table.head>
                         <x-table.head>Date remboursement</x-table.head>
                         <x-table.head class="text-center">Total</x-table.head>
+                        <x-table.head>Actions</x-table.head>
                     </tr>
                 </thead>
 
@@ -45,12 +46,21 @@
                                     {{ $payment->total }}
                                 </div>
                             </x-table.data>
+                            <x-table.data>
+                                <div class="px-2 py-1 text-center text-gray-700 bg-green-200 rounded">
+                                    <a href="{{ route('payments.giveback', [$user->username(), $payment->id])}}">Rembourser</a>
+                                </div>
+                            </x-table.data>
                         </tr> 
                     @endforeach
                     
                 </tbody>
 
             </table>
+            
+        </div>
+        <div class="flex justify-end mt-2">
+            <h2 class="text-black text-4xl">Total : <span class="text-red-600">{{ $sum }}</span></h2>
         </div>
     </section>
 

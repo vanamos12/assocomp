@@ -31,21 +31,23 @@ class Utils {
         $dateCreation = clone $nextPaymentLimit;
         $dateNow = Carbon::now();
         $nextPaymentLimitFor = Carbon::now();
-        $total = 0;
+        $modified = false;
+        $totalInterest = 0;
         if ($dateCreation <= $dateNow){
+            $modified = true;
             $months = $dateCreation->diffInMonths($dateNow);
             $period = config('association.period', 3);
             
             $periods = self::roundToUpper($months / $period);
             $interest = config('association.interest', 10) / 100;
             $totalInterest = $periods * $interest * $amount; 
-            $total = $amount + $totalInterest;
             $nextPaymentLimitFor = $dateCreation->addMonths((int)($periods*$period));
         }
 
         return [
-            'total' => $total,
+            'totalInterest' => $totalInterest,
             'nextPaymentLimit' => $nextPaymentLimitFor,
+            'modified' => $modified,
         ];
     }
 
