@@ -41,9 +41,6 @@ class Utils {
             $totalInterest = $periods * $interest * $amount; 
             $total = $amount + $totalInterest;
             $nextPaymentLimitFor = $dateCreation->addMonths((int)($periods*$period));
-            //dd($periods, $interest, $amount);
-            //dd($amount,$totalInterest, $total, $nextPaymentlimit);
-            
         }
 
         return [

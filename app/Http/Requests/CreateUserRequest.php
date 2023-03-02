@@ -35,23 +35,23 @@ class CreateUserRequest extends FormRequest
         ];
     }
 
-    public function name():string{
+    public function name():string {
         return $this->get('name');
     }
 
-    public function username():string{
+    public function username():string {
         return $this->get('username');
     }
 
-    public function fonction():int{
+    public function fonction():int {
         return (int) $this->get('fonction');
     }
 
-    public function email():string{
+    public function email():string {
         return $this->get('email');
     }
 
-    public function bio():string{
+    public function bio():string {
         return $this->get('bio');
     }
 }

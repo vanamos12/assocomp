@@ -7,12 +7,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Jobs\CreatePaymentJob;
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
 
 class PaymentController extends Controller
 {
     //
     public function show(User $user){
-        $payments = [];
+        $payments = Payment::where('user_id', $user->id)->where('status', Payment::ACTIF_STATUS)->get();
         return view('admin.payments.show', compact('user', 'payments'));
     }
 
