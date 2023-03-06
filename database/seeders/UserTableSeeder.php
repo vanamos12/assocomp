@@ -39,6 +39,17 @@ class UserTableSeeder extends Seeder
         ]);
 
         User::factory()->create([
+            'name' => 'Mekowa',
+            'username' => 'mekowa',
+            'slug' => 'mekowa',
+            'fonction' => 6,
+            'email' => 'mekowa@mekowa.com',
+            'canconnect' => true,
+            'password' => bcrypt('mekowa'),
+            'type' => User::DEFAULT,
+        ]);
+
+        User::factory()->create([
             'name' => 'Naya Doe',
             'username' => 'mayadoe',
             'slug' => 'maya-doe',

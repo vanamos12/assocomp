@@ -27,7 +27,7 @@
 
         <x-dashboard.nav />
 
-        <div class="grid grid-cols-8 mx-auto w-5/6">
+        <div class="grid grid-cols-8 mx-auto w-10/12">
 
             {{-- Sidenav --}}
             <x-dashboard.sidenav />

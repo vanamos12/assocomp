@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Pages\HomeController;
 use App\Http\Controllers\Admin\PaymentController;
@@ -34,6 +35,11 @@ Route::get('dashboard/payments/{user:username}', [PaymentController::class, 'sho
 Route::get('dashboard/payments/{user:username}/create', [PaymentController::class, 'create'])->name('payments.create');
 Route::post('dashboard/payments/{user:username}/store', [PaymentController::class, 'store'])->name('payments.store');
 Route::get('dashboard/payments/{user:username}/giveback/{payment}', [PaymentController::class, 'giveback'])->name('payments.giveback');
+
+Route::get('dashboard/meetings', [MeetingController::class, 'list'])->name('meetings');
+Route::get('dashboard/meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
+Route::post('dashboard/meetings/store', [MeetingController::class, 'store'])->name('meetings.store');
+Route::get('dashboard/meetings/{meeting}', [MeetingController::class, 'showMeeting'])->name('meetings.show');
 
 Route::get('/dashboard/categories/index', [PageController::class, 'categoriesIndex'])->name('categories.index');
 Route::get('/dashboard/categories/create', [PageController::class, 'categoriesCreate'])->name('categories.create');
