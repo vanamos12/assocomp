@@ -39,7 +39,9 @@ Route::get('dashboard/payments/{user:username}/giveback/{payment}', [PaymentCont
 Route::get('dashboard/meetings', [MeetingController::class, 'list'])->name('meetings');
 Route::get('dashboard/meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
 Route::post('dashboard/meetings/store', [MeetingController::class, 'store'])->name('meetings.store');
-Route::get('dashboard/meetings/{meeting}', [MeetingController::class, 'showMeeting'])->name('meetings.show');
+Route::get('dashboard/meetings/{meeting}', [MeetingController::class, 'show'])->name('meetings.show');
+Route::get('dashboard/meetings/{meeting}/loan/create', [MeetingController::class, 'loanCreate'])->name('meetings.loan.create');
+Route::post('dashboard/meetings/{meeting}/loan/store', [MeetingController::class, 'loanStore'])->name('meetings.loan.store');
 
 Route::get('/dashboard/categories/index', [PageController::class, 'categoriesIndex'])->name('categories.index');
 Route::get('/dashboard/categories/create', [PageController::class, 'categoriesCreate'])->name('categories.create');

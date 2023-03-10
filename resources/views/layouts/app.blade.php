@@ -66,6 +66,24 @@
   <script>
   $( function() {
     
+    $( "#user" ).autocomplete({
+      minLength: 0,
+      source: users,
+      focus: function( event, ui ) {
+        $( "#search-user" ).val( ui.item.label );
+        return false;
+      },
+      select: function( event, ui ) {
+        $( "#user" ).val( ui.item.label );
+         $( "#user_id" ).val( ui.item.value );
+        return false;
+      }
+    })
+    .autocomplete( "instance" )._renderItem = function( ul, item ) {
+      return $( "<li style='background-color:white;border-bottom:2px solid lightgray;'>" )
+        .append( `<div>${item.label}</div>` )
+        .appendTo( ul );
+    };
  
     $( "#search-user" ).autocomplete({
       minLength: 0,

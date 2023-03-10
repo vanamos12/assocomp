@@ -5,7 +5,7 @@
         
         <div class="flex flex-row justify-between px-3 items-center">
             <h2 class="text-xl font-semibold leading-tight">
-                {{ __('Ceation d\'une reunion') }}
+                {{ __('Creation d\'une reunion') }}
             </h2>
 
         </div>
