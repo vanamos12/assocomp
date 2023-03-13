@@ -5,6 +5,7 @@ namespace App\Jobs;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Utils\Utils;
+use App\Models\Meeting;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
@@ -20,6 +21,7 @@ class CreatePaymentJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $user;
+    private $meeting;
     private $amount;
     private $dateCreation;
     private $nextPaymentLimit;
@@ -31,6 +33,7 @@ class CreatePaymentJob implements ShouldQueue
      */
     public function __construct(
         User $user,
+        Meeting $meeting,
         int $amount,
         Carbon $dateCreation,
         Carbon $nextPaymentLimit,
@@ -39,13 +42,14 @@ class CreatePaymentJob implements ShouldQueue
     {
         //
         $this->user = $user;
+        $this->meeting = $meeting;
         $this->amount = $amount;
         $this->dateCreation = $dateCreation;
         $this->nextPaymentLimit = $nextPaymentLimit;
         $this->total = $total;
     }
 
-    public static function fromRequest(User $user, Request $request){
+    public static function fromRequest(User $user, Meeting $meeting, Request $request){
         $dateCreation = Carbon::createFromFormat('Y-m-d', $request->get('creation'));
         $amount = (int) $request->get('amount');
         $tab = Utils::calculatePayment($dateCreation, $amount);
@@ -54,10 +58,11 @@ class CreatePaymentJob implements ShouldQueue
 
         return new Static(
             $user,
+            $meeting,
             $amount,
             $dateCreation,
             $nextPaymentLimit,
-            $total
+            $total,
         );
     }
 
@@ -71,6 +76,7 @@ class CreatePaymentJob implements ShouldQueue
         //
         $payment = new Payment([
             'user_id' => $this->user->id,
+            'meeting_id' => $this->meeting->id,
             'amount' => $this->amount,
             'status' => Payment::ACTIF_STATUS,
             'creation' => $this->dateCreation,

@@ -60,6 +60,28 @@ class UserTableSeeder extends Seeder
             'type' => User::DEFAULT,
         ]);
 
+        User::factory()->create([
+            'name' => 'Francis Esssomba',
+            'username' => 'francis-essomba',
+            'slug' => 'francis-essomba',
+            'fonction' => 6,
+            'email' => 'francis.essomba@example.com',
+            'canconnect' => false,
+            'password' => bcrypt('mekowa'),
+            'type' => User::DEFAULT,
+        ]);
+
+        User::factory()->create([
+            'name' => 'Njip Josiane',
+            'username' => 'njip-josiane',
+            'slug' => 'njip-josiane',
+            'fonction' => 6,
+            'email' => 'njip.josiane@example.com',
+            'canconnect' => false,
+            'password' => bcrypt('mekowa'),
+            'type' => User::DEFAULT,
+        ]);
+
         //User::factory()->count(10)->create();
     }
 }

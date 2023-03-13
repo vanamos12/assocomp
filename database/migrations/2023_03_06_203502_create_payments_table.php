@@ -17,10 +17,12 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->float('amount');
+            $table->foreignId('meeting_id')->constrained('meetings');
             $table->string('status');
             $table->date('creation');
             $table->date('nextpaymentlimit');
             $table->float('total');
+            $table->float('partrembtotal')->default(0);
             $table->timestamps();
         });
     }

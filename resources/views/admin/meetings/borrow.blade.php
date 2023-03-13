@@ -5,7 +5,7 @@
         
         <div class="flex flex-row justify-between px-3 items-center">
             <h2 class="text-xl font-semibold leading-tight">
-                {{ __('Preter') }} : {{ $meeting->name }} 
+                {{ __('Emprunter') }} : {{ $meeting->name }} 
             </h2>
 
         </div>
@@ -13,10 +13,10 @@
 
     <section class="px-6">
         <div class="overflow-scroll md:overflow-hidden border-b border-gray-200">
-            <x-form action="{{route('meetings.loan.store', $meeting->id)}}">
+            <x-form action="{{route('meetings.borrow.store', $meeting->id)}}">
                 {{-- Preteur --}}
                 <div>
-                    <x-form.label for="user" value="{{ __('Preteur') }}" />
+                    <x-form.label for="user" value="{{ __('Emprunteur') }}" />
                     <x-form.input id="user" class="block w-full mt-1" type="text" name="user" :value="old('user')" required autofocus />
                     <x-form.input id="user_id" class="block w-full mt-1" type="hidden" name="user_id"  required  />
                     <x-form.error for="user" />

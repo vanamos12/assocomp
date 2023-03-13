@@ -42,6 +42,8 @@ Route::post('dashboard/meetings/store', [MeetingController::class, 'store'])->na
 Route::get('dashboard/meetings/{meeting}', [MeetingController::class, 'show'])->name('meetings.show');
 Route::get('dashboard/meetings/{meeting}/loan/create', [MeetingController::class, 'loanCreate'])->name('meetings.loan.create');
 Route::post('dashboard/meetings/{meeting}/loan/store', [MeetingController::class, 'loanStore'])->name('meetings.loan.store');
+Route::get('dashboard/meetings/{meeting}/borrow/create', [MeetingController::class, 'borrowCreate'])->name('meetings.borrow.create');
+Route::post('dashboard/meetings/{meeting}/borrow/store', [MeetingController::class, 'borrowStore'])->name('meetings.borrow.store');
 
 Route::get('/dashboard/categories/index', [PageController::class, 'categoriesIndex'])->name('categories.index');
 Route::get('/dashboard/categories/create', [PageController::class, 'categoriesCreate'])->name('categories.create');

@@ -8,10 +8,10 @@
                 {{ $meeting->name }}
             </h2>
             <div class="flex gap-2">
-                <a href="{{route('meetings.loan.create', $meeting)}}"
+                <a href="{{route('meetings.loan.create', $meeting->id)}}"
                     class="bg-green-800 rounded-lg py-2 px-4 text-white"
                 >{{ __('Preter')}}</a>
-                <a href="{{route('meetings.create')}}"
+                <a href="{{route('meetings.borrow.create', $meeting->id)}}"
                     class="bg-green-800 rounded-lg py-2 px-4 text-white"
                 >{{ __('Emprunter')}}</a>
             </div>
@@ -23,37 +23,53 @@
            <table class="min-w-full">
                 <thead class="bg-blue-500">
                     <tr>
-                        <x-table.head>Nom</x-table.head>
-                        <x-table.head>Date de tenue</x-table.head>
+                        <x-table.head>Montant</x-table.head>
+                        <x-table.head>Type</x-table.head>
                         
-                        <x-table.head>Actions</x-table.head>
+                        <x-table.head>Utilisateur</x-table.head>
                     </tr>
                 </thead>
 
                 <tbody class="divide-y divide-gray-200 divide-solid">
-                    {{--
-                    @foreach($meetings as $key => $meeting)
+                    
+                    @foreach($loansmeeting as $key => $loan)
                        <tr>
                             <x-table.data>
-                                <div>{{ $meeting->name }}</div>
+                                <div>{{ $loan->amount }}</div>
                             </x-table.data>
                             <x-table.data>
-                                <div>{{ $meeting->creation }}</div>
+                                <div>{{ 'Pret' }}</div>
+                            </x-table.data>
+                            <x-table.data>
+                                <div>{{ $loan->user->username }}</div>
                             </x-table.data>
                             
+                        </tr> 
+                    @endforeach
+                    
+                    @foreach($paymentsmeeting as $key => $payment)
+                       <tr>
                             <x-table.data>
-                                <div class="px-2 py-1 text-center text-gray-700 bg-green-200 rounded">
-                                    <a href="{{ route('meetings.show', $meeting->id)}}">Voir</a>
-                                </div>
+                                <div>{{ $payment->amount }}</div>
+                            </x-table.data>
+                            <x-table.data>
+                                <div>{{ 'Emprunt' }}</div>
+                            </x-table.data>
+                            <x-table.data>
+                                <div>{{ $payment->user->username }}</div>
                             </x-table.data>
                         </tr> 
                     @endforeach
-                    --}}
                     
                 </tbody>
 
             </table>
+
+            
         </div>
+        <div class="flex justify-end items-center text-4xl">
+                <h2>Argent disponible : <span class="text-red-600">{{ $loantotal }}</span></h2>
+            </div>
     </section>
 
     

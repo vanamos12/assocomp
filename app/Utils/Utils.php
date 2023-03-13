@@ -1,10 +1,63 @@
 <?php
 namespace App\Utils;
 
+use App\Models\Loan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Date;
 
 class Utils {
+
+    public static function loanTotal($loans){
+        $sum = 0;
+        foreach($loans as $loan){
+            if ($loan->loaned == Loan::NOT_LOANED){
+                $sum += $loan->amount;
+            }else if ($loan->loaned == Loan::PARTIAL_LOANED){
+                $sum += $loan->partloanamount;
+            }
+        }
+        return $sum;
+    }
+
+    public static function borrowMoney($amount, $loans, $loantotal){
+        $count = count($loans);
+        $i = 0;
+        $continue = true;
+        while($i < $count && $continue){
+            $loan = $loans->get($i);
+            $amountunitloan = 0;
+            if($loan->loaned == Loan::NOT_LOANED){
+                $amountunitloan = $loan->amount;
+            }else if ($loan->loaned == Loan::PARTIAL_LOANED){
+                $amountunitloan = $loan->partloanamount;
+            }
+            $rest = $amountunitloan - $amount;
+            if ($rest == 0){
+                $loan->update([
+                    "loaned" => Loan::LOANED,
+                    "partloanamount" => 0
+                ]);
+                $continue = false;
+            }else if ($rest > 0){
+                
+                $loan->update([
+                    "loaned" => Loan::PARTIAL_LOANED,
+                    "partloanamount" => $rest,
+                ]);
+                $continue = false;
+                // put values in textloaned
+
+            }else {  // $rest < 0
+                $loan->update([
+                    "loaned" => Loan::LOANED,
+                    "partloanamount" => 0
+                ]);
+                $amount = -$rest;
+            }
+
+            $i++;
+        }
+    }
 
     public static function roundToUpper($number){
         if (self::isInt($number)){
