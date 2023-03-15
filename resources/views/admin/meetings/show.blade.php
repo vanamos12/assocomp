@@ -8,6 +8,9 @@
                 {{ $meeting->name }}
             </h2>
             <div class="flex gap-2">
+                <a href="{{route('meetings.cotiser.create', $meeting->id)}}"
+                    class="bg-green-800 rounded-lg py-2 px-4 text-white"
+                >{{ __('Cotiser')}}</a>
                 <a href="{{route('meetings.loan.create', $meeting->id)}}"
                     class="bg-green-800 rounded-lg py-2 px-4 text-white"
                 >{{ __('Preter')}}</a>
@@ -57,6 +60,20 @@
                             </x-table.data>
                             <x-table.data>
                                 <div>{{ $payment->user->username }}</div>
+                            </x-table.data>
+                        </tr> 
+                    @endforeach
+
+                    @foreach($cotisationsmeeting as $key => $cotisation)
+                       <tr>
+                            <x-table.data>
+                                <div>{{ $cotisation->amount }}</div>
+                            </x-table.data>
+                            <x-table.data>
+                                <div>{{ $cotisation->rubrique->name }}</div>
+                            </x-table.data>
+                            <x-table.data>
+                                <div>{{ $cotisation->user->username }}</div>
                             </x-table.data>
                         </tr> 
                     @endforeach

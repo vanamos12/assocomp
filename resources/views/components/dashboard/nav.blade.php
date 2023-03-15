@@ -13,18 +13,23 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('home')">
+                    <x-jet-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                         {{ __('Profil') }}
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                         {{ __('Utilisateurs') }}
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('meetings') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link href="{{ route('meetings') }}" :active="request()->routeIs('meetings')">
                         {{ __('Reunions') }}
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('rubriques') }}" :active="request()->routeIs('rubriques')">
+                        {{ __('Rubriques') }}
                     </x-jet-nav-link>
                 </div>
             </div>

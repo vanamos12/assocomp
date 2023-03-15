@@ -6,6 +6,7 @@ use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Pages\HomeController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\CotisationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,13 @@ Route::get('dashboard/meetings/{meeting}/loan/create', [MeetingController::class
 Route::post('dashboard/meetings/{meeting}/loan/store', [MeetingController::class, 'loanStore'])->name('meetings.loan.store');
 Route::get('dashboard/meetings/{meeting}/borrow/create', [MeetingController::class, 'borrowCreate'])->name('meetings.borrow.create');
 Route::post('dashboard/meetings/{meeting}/borrow/store', [MeetingController::class, 'borrowStore'])->name('meetings.borrow.store');
+Route::get('dashboard/meetings/{meeting}/cotiser/create', [MeetingController::class, 'cotiserCreate'])->name('meetings.cotiser.create');
+Route::post('dashboard/meetings/{meeting}/cotiser/store', [MeetingController::class, 'cotiserStore'])->name('meetings.cotiser.store');
+
+
+Route::get('dashboard/rubriques', [CotisationController::class, 'rubriqueList'])->name('rubriques');
+Route::get('dashboard/rubriques/create', [CotisationController::class, 'rubriqueCreate'])->name('rubriques.create');
+Route::post('dashboard/rubriques/store', [CotisationController::class, 'rubriqueStore'])->name('rubriques.store');
 
 Route::get('/dashboard/categories/index', [PageController::class, 'categoriesIndex'])->name('categories.index');
 Route::get('/dashboard/categories/create', [PageController::class, 'categoriesCreate'])->name('categories.create');
