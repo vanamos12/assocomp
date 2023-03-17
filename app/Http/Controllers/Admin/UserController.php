@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Jobs\CreateUserJob;
 use App\Models\User;
+use App\Utils\Utils;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,7 +14,7 @@ class UserController extends Controller
     //
     public function create(){
         $fonctions = User::FONCTION;
-        $users = User::where('canconnect', false)->get();
+        $users = Utils::getUsersFromCompany(auth()->user()->company_id);
         $labelusers = [];
         foreach($users as $user){
             $labelusers[] = ['label' => $user->username, 'value'=> $user->id];
@@ -23,7 +24,7 @@ class UserController extends Controller
 
     public function users()
     {
-        $users = User::where('canconnect', false)->get();
+        $users = Utils::getUsersFromCompany(auth()->user()->company_id);
         $fonctions = User::FONCTION;
         $labelusers = [];
         foreach($users as $user){

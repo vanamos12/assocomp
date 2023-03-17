@@ -16,6 +16,7 @@ class CreateBanksTable extends Migration
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->foreignId('company_id')->constrained('companies');
             $table->date('creation');
             $table->float('balance');
             $table->timestamps();

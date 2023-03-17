@@ -81,7 +81,8 @@ class CreatePaymentJob implements ShouldQueue
             'status' => Payment::ACTIF_STATUS,
             'creation' => $this->dateCreation,
             'nextpaymentlimit' => $this->nextPaymentLimit,
-            'total' => $this->total
+            'total' => $this->total,
+            'company_id' => auth()->user()->company_id
         ]);
 
         $payment->save();

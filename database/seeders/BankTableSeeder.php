@@ -17,6 +17,7 @@ class BankTableSeeder extends Seeder
     {
         //
         Bank::factory()->create([
+            'company_id' => 1,
             'name' => 'bank',
             'creation' => Carbon::now(),
             'balance' => 0,

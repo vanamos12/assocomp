@@ -17,6 +17,7 @@ class CreateMeetingsTable extends Migration
             $table->id();
             $table->string('name');
             $table->date('creation');
+            $table->foreignId('company_id')->constrained('companies');
             $table->boolean('closed')->default(false);
             $table->timestamps();
         });

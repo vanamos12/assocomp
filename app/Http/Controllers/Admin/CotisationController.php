@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Rubrique;
+use App\Utils\Utils;
 use Illuminate\Http\Request;
 
 class CotisationController extends Controller
@@ -12,8 +13,7 @@ class CotisationController extends Controller
 
     public function rubriqueList(){
         $dateNow = date('Y-m-d');
-        $rubriques = Rubrique::where('debut', '<=', $dateNow)
-                                ->where ('fin', '>=', $dateNow)->get();
+        $rubriques = Utils::getActiveRubriques(auth()->user()->company_id);
         return view('admin.rubriques.list', compact('rubriques'));
     }
 
@@ -26,6 +26,7 @@ class CotisationController extends Controller
             'name' => $request->get('name'),
             'debut' => $request->get('debut'),
             'fin' => $request->get('fin'),
+            'company_id' => auth()->user()->company_id
         ]);
 
         $rubrique->save();

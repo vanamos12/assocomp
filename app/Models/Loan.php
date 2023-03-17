@@ -19,6 +19,7 @@ class Loan extends Model
         'amount',
         'creation',
         'meeting_id',
+        'company_id',
         'loaned',
         'textloaned',
         'partloanamount'

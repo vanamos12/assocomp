@@ -5,6 +5,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Pages\HomeController;
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\CotisationController;
 
@@ -53,6 +54,9 @@ Route::get('dashboard/rubriques', [CotisationController::class, 'rubriqueList'])
 Route::get('dashboard/rubriques/create', [CotisationController::class, 'rubriqueCreate'])->name('rubriques.create');
 Route::post('dashboard/rubriques/store', [CotisationController::class, 'rubriqueStore'])->name('rubriques.store');
 
+Route::get('dashboard/companies/create', [CompanyController::class, 'create'])->name('companies.create');
+Route::post('dashboard/companies/store', [CompanyController::class, 'store'])->name('companies.store');
+
 Route::get('/dashboard/categories/index', [PageController::class, 'categoriesIndex'])->name('categories.index');
 Route::get('/dashboard/categories/create', [PageController::class, 'categoriesCreate'])->name('categories.create');
 
@@ -62,3 +66,7 @@ Route::get('/dashboard/threads/create', [PageController::class, 'threadsCreate']
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/admin/dashboard', function () {
+    return view('admin-dashboard');
+})->name('admin-dashboard');

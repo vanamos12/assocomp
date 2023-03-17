@@ -14,6 +14,7 @@ class Cotisation extends Model
         'rubrique_id',
         'user_id',
         'meeting_id',
+        'company_id',
         'amount',
         'creation'
     ];

@@ -10,6 +10,7 @@ class Rubrique extends Model
     use HasFactory;
 
     protected $fillable = [
+        'company_id',
         'name',
         'debut',
         'fin',

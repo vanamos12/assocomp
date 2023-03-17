@@ -1,11 +1,43 @@
 <?php
 namespace App\Utils;
 
-use App\Models\Loan;
 use Carbon\Carbon;
+use App\Models\Loan;
+use App\Models\User;
+use App\Models\Meeting;
+use App\Models\Rubrique;
 use Illuminate\Support\Facades\Date;
 
 class Utils {
+
+    public static function getActiveRubriques($company_id){
+        $dateNow = date('Y-m-d');
+        return Rubrique::where('debut', '<=', $dateNow)
+                    ->where('fin', '>=', $dateNow)
+                    ->where('company_id', $company_id)
+                    ->get();
+    }
+
+    public static function getLoanTotal($company_id){
+        $loans = Loan::where('loaned', '!=' , Loan::LOANED)
+                        ->where('company_id', $company_id)
+                        ->get();
+        $loantotal = Utils::loanTotal($loans);
+        return $loantotal;
+    }
+
+    public static function getMeetingsFromCompany($company_id){
+        $meetings = Meeting::where('company_id', $company_id)->get();
+        return $meetings;
+    }
+
+    public static function getUsersFromCompany($company_id){
+        $users = User::where('canconnect', false)
+                        ->where('company_id', $company_id)
+                        ->get();
+
+        return $users;
+    }
 
     public static function loanTotal($loans){
         $sum = 0;
@@ -19,7 +51,8 @@ class Utils {
         return $sum;
     }
 
-    public static function borrowMoney($amount, $loans, $loantotal){
+    public static function borrowMoney($amount){
+        $loans = Loan::where('loaned', '!=' , Loan::LOANED)->get();
         $count = count($loans);
         $i = 0;
         $continue = true;

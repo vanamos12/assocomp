@@ -68,7 +68,8 @@ class CreateUserJob implements ShouldQueue
             'fonction' => $this->fonction,
             'email' => $this->email,
             'bio' => $this->bio,
-            'password' => bcrypt('mekowa')
+            'password' => bcrypt('mekowa'),
+            'company_id' => auth()->user()->company_id
         ]);
         
         $user->save();

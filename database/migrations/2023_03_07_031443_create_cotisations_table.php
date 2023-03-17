@@ -18,6 +18,7 @@ class CreateCotisationsTable extends Migration
             $table->foreignId('rubrique_id')->constrained('rubriques');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('meeting_id')->constrained('meetings');
+            $table->foreignId('company_id')->constrained('companies');
             $table->date('creation');
             $table->float('amount');
 

@@ -24,6 +24,7 @@ class UserTableSeeder extends Seeder
             'email' => 'admin@example.com',
             'canconnect' => true,
             'password' => bcrypt('password'),
+            'company_id' => 1,
             'type' => User::ADMIN,
         ]);
 
@@ -35,6 +36,7 @@ class UserTableSeeder extends Seeder
             'email' => 'john@example.com',
             'canconnect' => true,
             'password' => bcrypt('password'),
+            'company_id' => 1,
             'type' => User::DEFAULT,
         ]);
 
@@ -46,6 +48,7 @@ class UserTableSeeder extends Seeder
             'email' => 'mekowa@mekowa.com',
             'canconnect' => true,
             'password' => bcrypt('mekowa'),
+            'company_id' => 1,
             'type' => User::DEFAULT,
         ]);
 
@@ -57,6 +60,7 @@ class UserTableSeeder extends Seeder
             'email' => 'maya@example.com',
             'canconnect' => true,
             'password' => bcrypt('password'),
+            'company_id' => 1,
             'type' => User::DEFAULT,
         ]);
 
@@ -68,6 +72,7 @@ class UserTableSeeder extends Seeder
             'email' => 'francis.essomba@example.com',
             'canconnect' => false,
             'password' => bcrypt('mekowa'),
+            'company_id' => 1,
             'type' => User::DEFAULT,
         ]);
 
@@ -79,6 +84,7 @@ class UserTableSeeder extends Seeder
             'email' => 'njip.josiane@example.com',
             'canconnect' => false,
             'password' => bcrypt('mekowa'),
+            'company_id' => 1,
             'type' => User::DEFAULT,
         ]);
 

@@ -19,6 +19,7 @@ class MeetingTableSeeder extends Seeder
         Meeting::factory()->create([
             'name' => 'Reunion Janvier 2023',
             'creation' => Carbon::now(),
+            'company_id' => 1
         ]);
     }
 }

@@ -17,9 +17,9 @@ class MeetingController extends Controller
     //
 
     public function list(){
-        $loans = Loan::where('loaned', '!=' , Loan::LOANED)->get();
-        $loantotal = Utils::loanTotal($loans);
-        $meetings = Meeting::all();
+        $company_id = auth()->user()->company_id;
+        $loantotal = Utils::getLoanTotal($company_id);
+        $meetings = Utils::getMeetingsFromCompany($company_id);
         return view('admin.meetings.list', compact('meetings', 'loantotal'));
     }
 
@@ -33,7 +33,8 @@ class MeetingController extends Controller
 
         $meeting = new Meeting([
             'name' => $name,
-            'creation' => $creation
+            'creation' => $creation,
+            'company_id' => auth()->user()->company_id
         ]);
         $meeting->save();
         return redirect()->route('meetings');
@@ -41,17 +42,23 @@ class MeetingController extends Controller
     }
 
     public function show(Meeting $meeting){
-        $loans = Loan::where('loaned', '!=' , Loan::LOANED)->get();
-        $loantotal = Utils::loanTotal($loans);
+        $company_id = auth()->user()->company_id;
+        $loantotal = Utils::getLoanTotal($company_id);
 
-        $loansmeeting = Loan::where('meeting_id', $meeting->id)->get();
-        $paymentsmeeting = Payment::where('meeting_id', $meeting->id)->get();
-        $cotisationsmeeting = Cotisation::where('meeting_id', $meeting->id)->get();
+        $loansmeeting = Loan::where('meeting_id', $meeting->id)
+                                ->where('company_id', $company_id)
+                                ->get();
+        $paymentsmeeting = Payment::where('meeting_id', $meeting->id)
+                                    ->where('company_id', $company_id)
+                                    ->get();
+        $cotisationsmeeting = Cotisation::where('meeting_id', $meeting->id)
+                                    ->where('company_id', $company_id)
+                                    ->get();
         return view('admin.meetings.show', compact('meeting', 'loantotal', 'loansmeeting', 'paymentsmeeting', 'cotisationsmeeting'));
     }
 
     public function loanCreate(Meeting $meeting){
-        $users = User::where('canconnect', false)->get();
+        $users = Utils::getUsersFromCompany(auth()->user()->company_id);
         $labelusers = [];
         foreach($users as $user){
             $labelusers[] = ['label' => $user->username, 'value'=> $user->id];
@@ -71,6 +78,7 @@ class MeetingController extends Controller
             'amount' => $request->get('amount'),
             'creation' => $request->get('creation'),
             'meeting_id' => $meeting->id,
+            'company_id' => auth()->user()->company_id
         ]);
 
         $loan->save();
@@ -79,7 +87,7 @@ class MeetingController extends Controller
     }
 
     public function borrowCreate(Meeting $meeting){
-        $users = User::where('canconnect', false)->get();
+        $users = Utils::getUsersFromCompany(auth()->user()->company_id);
         $labelusers = [];
         foreach($users as $user){
             $labelusers[] = ['label' => $user->username, 'value'=> $user->id];
@@ -88,8 +96,7 @@ class MeetingController extends Controller
     }
 
     public function borrowStore(Meeting $meeting, Request $request){
-        $loans = Loan::where('loaned', '!=' , Loan::LOANED)->get();
-        $loantotal = Utils::loanTotal($loans);
+        $loantotal = Utils::getLoanTotal(auth()->user()->company_id);
         $validated = $request->validate([
             'amount' => 'required|numeric|gt:0|lte:'.$loantotal,
             'user_id' => 'required',
@@ -97,7 +104,7 @@ class MeetingController extends Controller
         ]);
 
         $amount = $request->get('amount');
-        Utils::borrowMoney($amount, $loans, $loantotal);
+        Utils::borrowMoney($amount);
 
         $user = User::where('id', $request->get('user_id'))->first();
         $this->dispatchSync(CreatePaymentJob::fromRequest($user, $meeting, $request));
@@ -108,14 +115,14 @@ class MeetingController extends Controller
     }
 
     public function cotiserCreate(Meeting $meeting){
-        $users = User::where('canconnect', false)->get();
+        $company_id = auth()->user()->company_id;
+        $users = Utils::getUsersFromCompany($company_id);
         $labelusers = [];
         foreach($users as $user){
             $labelusers[] = ['label' => $user->username, 'value'=> $user->id];
         }
-        $dateNow = date('Y-m-d');
-        $rubriques = Rubrique::where('debut', '<=', $dateNow)
-                                ->where ('fin', '>=', $dateNow)->get();
+        
+        $rubriques = Utils::getActiveRubriques($company_id);
         return view('admin.meetings.cotiser', compact('rubriques', 'meeting', 'labelusers'));
     }
 
@@ -125,7 +132,8 @@ class MeetingController extends Controller
             'rubrique_id' => $request->get('rubrique'),
             'meeting_id' => $meeting->id,
             'amount' => $request->get('amount'),
-            'creation' => $request->get('creation')
+            'creation' => $request->get('creation'),
+            'company_id' => auth()->user()->company_id
         ]);
 
         $cotisation->save();

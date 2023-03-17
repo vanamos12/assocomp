@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRubriquesTable extends Migration
+class CreateCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateRubriquesTable extends Migration
      */
     public function up()
     {
-        Schema::create('rubriques', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->foreignId('company_id')->constrained('companies');
-            $table->date('debut');
-            $table->date('fin');
+            $table->string('name');
+            $table->string('uniquename')->unique();
+            $table->string('rc');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateRubriquesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rubriques');
+        Schema::dropIfExists('conpanies');
     }
 }

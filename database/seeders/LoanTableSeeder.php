@@ -21,6 +21,7 @@ class LoanTableSeeder extends Seeder
             'amount' => 100000,
             'creation' => Carbon::now(),
             'meeting_id' => 1,
+            'company_id' => 1,
         ]);
 
         Loan::factory()->create([
@@ -28,6 +29,7 @@ class LoanTableSeeder extends Seeder
             'amount' => 100000,
             'creation' => Carbon::now(),
             'meeting_id' => 1,
+            'company_id' => 1,
         ]);
     }
 }
