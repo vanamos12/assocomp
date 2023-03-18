@@ -22,9 +22,11 @@ class CreateLoansTable extends Migration
             $table->foreignId('meeting_id')->constrained('meetings');
             $table->foreignId('company_id')->constrained('companies');
             $table->string('loaned')->default(Loan::NOT_LOANED);
+            $table->string('refunded')->default(Loan::NOT_REFUNDED);
             $table->text('textloaned')->default('');
             // Le montant restant a louer lorsque le pret est partiellement loue.
             $table->float('partloanamount')->default(0);
+            $table->float('partrefundamount')->default(0);
             $table->timestamps();
         });
     }

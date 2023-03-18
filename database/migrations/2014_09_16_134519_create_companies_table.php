@@ -18,6 +18,8 @@ class CreateCompaniesTable extends Migration
             $table->string('name');
             $table->string('uniquename')->unique();
             $table->string('rc');
+            $table->integer('interest')->default(10);
+            $table->integer('period')->default(3);
             $table->timestamps();
         });
     }

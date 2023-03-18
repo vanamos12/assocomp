@@ -14,6 +14,10 @@ class Loan extends Model
     Const NOT_LOANED = 'not_loaned';
     Const PARTIAL_LOANED = 'partial_loaned';
 
+    Const NOT_REFUNDED = 'not_refunded';
+    Const REFUNDED = 'refunded';
+    Const PARTIAL_REFUNDED = 'partial_refunded';
+
     protected $fillable = [
         'user_id',
         'amount',

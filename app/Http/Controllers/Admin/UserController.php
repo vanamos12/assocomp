@@ -38,4 +38,9 @@ class UserController extends Controller
 
         return redirect()->route('users');
     }
+
+    public function show(User $user){
+        $loanedtotaluser = Utils::getUserLoan($user->id, $user->company_id);
+        $loanedUserRemboursable = Utils::getUserLoanRemboursable($user->id, $user->company_id);
+    }
 }

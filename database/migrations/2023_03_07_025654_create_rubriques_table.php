@@ -15,7 +15,7 @@ class CreateRubriquesTable extends Migration
     {
         Schema::create('rubriques', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->foreignId('company_id')->constrained('companies');
             $table->date('debut');
             $table->date('fin');

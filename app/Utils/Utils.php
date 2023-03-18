@@ -1,6 +1,7 @@
 <?php
 namespace App\Utils;
 
+use App\Models\Company;
 use Carbon\Carbon;
 use App\Models\Loan;
 use App\Models\User;
@@ -16,6 +17,21 @@ class Utils {
                     ->where('fin', '>=', $dateNow)
                     ->where('company_id', $company_id)
                     ->get();
+    }
+
+    public static function getUserLoan($user_id, $company_id){
+        $sumTotalLoanUser = Loan::where('user_id', $user_id)
+                        ->where('company_id', $company_id)
+                        ->sum('amount');
+        return $sumTotalLoanUser;
+    }
+    
+    public static function getUserLoanRemboursable($user_id, $company_id){
+        $loans = Loan::where('loaned', '!=' , Loan::NOT_LOANED)
+                        ->where('company_id', $company_id)
+                        ->where('user_id', $user_id)
+                        ->get();
+        return Utils::loanTotalRemboursable($loans);
     }
 
     public static function getLoanTotal($company_id){
@@ -38,7 +54,17 @@ class Utils {
 
         return $users;
     }
-
+    public static function loanTotalRemboursable($loans){
+        $sum = 0;
+        foreach($loans as $loan){
+            if ($loan->loaned == Loan::NOT_LOANED){
+                $sum += $loan->amount;
+            }else if ($loan->loaned == Loan::PARTIAL_LOANED){
+                $sum += $loan->amount - $loan->partloanamount;
+            }
+        }
+        return $sum;
+    }
     public static function loanTotal($loans){
         $sum = 0;
         foreach($loans as $loan){
@@ -122,10 +148,10 @@ class Utils {
         if ($dateCreation <= $dateNow){
             $modified = true;
             $months = $dateCreation->diffInMonths($dateNow);
-            $period = config('association.period', 3);
+            $period = Utils::getPeriod();
             
             $periods = self::roundToUpper($months / $period);
-            $interest = config('association.interest', 10) / 100;
+            $interest = Utils::getInterest() / 100;
             $totalInterest = $periods * $interest * $amount; 
             $nextPaymentLimitFor = $dateCreation->addMonths((int)($periods*$period));
         }
@@ -136,5 +162,15 @@ class Utils {
             'modified' => $modified,
         ];
     }
+
+    public static function getInterest(){
+        return Company::where('id', auth()->user()->company_id)->first()->interest;
+    }
+
+    public static function getPeriod(){
+        return Company::where('id', auth()->user()->company_id)->first()->period;
+    }
+
+    
 
 }
