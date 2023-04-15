@@ -21,6 +21,18 @@
                     <x-form.input id="user_id" class="block w-full mt-1" type="hidden" name="user_id"  required  />
                     <x-form.error for="user" />
                 </div>
+
+                {{-- Rubrique --}}
+                <div class="mt-3">
+                    <x-form.label for="rubrique" value="{{ __('Rubrique') }}" />
+                    <select id="rubrique" class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" name="rubrique" :value="old('rubrique')" required>
+                        @foreach($rubriques as $key => $rub)
+                           <option value="{{ $rub->id }}">{{$rub->name}}</option> 
+                        @endforeach
+                        
+                    </select>
+                    <x-form.error for="fonction" />
+                </div>
                 
                 {{-- Amount --}}
                 <div class="mt-3">

@@ -51,9 +51,7 @@
             </table>
             
         </div>
-        <div class="flex justify-end items-center text-4xl">
-                <h2>Argent disponible : <span class="text-red-600">{{ $loantotal }}</span></h2>
-            </div>
+        
     </section>
 
 </x-app-layout>

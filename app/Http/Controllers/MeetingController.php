@@ -43,7 +43,10 @@ class MeetingController extends Controller
 
     public function show(Meeting $meeting){
         $company_id = auth()->user()->company_id;
-        $loantotal = Utils::getLoanTotal($company_id);
+
+        $balanceCotisation = Utils::balance($company_id, Rubrique::COTISATION);
+        $balanceEpargne = Utils::balance($company_id, Rubrique::EPARGNE);
+        $balanceFondsRoulement = Utils::balance($company_id, Rubrique::FONDS_ROULEMENT);
 
         $loansmeeting = Loan::where('meeting_id', $meeting->id)
                                 ->where('company_id', $company_id)
@@ -54,7 +57,7 @@ class MeetingController extends Controller
         $cotisationsmeeting = Cotisation::where('meeting_id', $meeting->id)
                                     ->where('company_id', $company_id)
                                     ->get();
-        return view('admin.meetings.show', compact('meeting', 'loantotal', 'loansmeeting', 'paymentsmeeting', 'cotisationsmeeting'));
+        return view('admin.meetings.show', compact('meeting', 'loansmeeting', 'paymentsmeeting', 'cotisationsmeeting', 'balanceCotisation', 'balanceEpargne', 'balanceFondsRoulement'));
     }
 
     public function loanCreate(Meeting $meeting){
@@ -63,22 +66,25 @@ class MeetingController extends Controller
         foreach($users as $user){
             $labelusers[] = ['label' => $user->username, 'value'=> $user->id];
         }
-        return view('admin.meetings.loan', compact('meeting', 'labelusers'));
+        $rubriques = Rubrique::where('company_id', auth()->user()->company_id)->get();
+        return view('admin.meetings.loan', compact('meeting', 'labelusers', 'rubriques'));
     }
 
     public function loanStore(Meeting $meeting, Request $request){
         $validated = $request->validate([
             'amount' => 'required|numeric|gt:0',
             'user_id' => 'required',
-            'creation' => 'required'
+            'creation' => 'required',
+            'rubrique' => 'required'
         ]);
-
+        
         $loan = new Loan([
             'user_id' => $request->get('user_id'),
             'amount' => $request->get('amount'),
             'creation' => $request->get('creation'),
             'meeting_id' => $meeting->id,
-            'company_id' => auth()->user()->company_id
+            'company_id' => auth()->user()->company_id,
+            'rubrique_id' => $request->get('rubrique'),
         ]);
 
         $loan->save();
@@ -92,19 +98,21 @@ class MeetingController extends Controller
         foreach($users as $user){
             $labelusers[] = ['label' => $user->username, 'value'=> $user->id];
         }
-        return view('admin.meetings.borrow', compact('meeting', 'labelusers'));
+        $rubriques = Rubrique::where('company_id', auth()->user()->company_id)->get();
+        return view('admin.meetings.borrow', compact('meeting', 'labelusers', 'rubriques'));
     }
 
     public function borrowStore(Meeting $meeting, Request $request){
-        $loantotal = Utils::getLoanTotal(auth()->user()->company_id);
+        $cotisetotal = Utils::getCotiseTotal(auth()->user()->company_id, $meeting->id);
         $validated = $request->validate([
-            'amount' => 'required|numeric|gt:0|lte:'.$loantotal,
+            'amount' => 'required|numeric|gt:0|lte:'.$cotisetotal,
             'user_id' => 'required',
-            'creation' => 'required'
+            'creation' => 'required',
+            'rubrique' => 'required'
         ]);
 
-        $amount = $request->get('amount');
-        Utils::borrowMoney($amount);
+        //$amount = $request->get('amount');
+        //Utils::borrowMoney($amount);
 
         $user = User::where('id', $request->get('user_id'))->first();
         $this->dispatchSync(CreatePaymentJob::fromRequest($user, $meeting, $request));

@@ -8,13 +8,13 @@
                 {{ $meeting->name }}
             </h2>
             <div class="flex gap-2">
-                <a href="{{route('meetings.cotiser.create', $meeting->id)}}"
+                {{-- <a href="{{route('meetings.cotiser.create', $meeting->id)}}"
                     class="bg-green-800 rounded-lg py-2 px-4 text-white"
-                >{{ __('Cotiser')}}</a>
+                >{{ __('Cotiser')}}</a> --}}
                 <a href="{{route('meetings.loan.create', $meeting->id)}}"
                     class="bg-green-800 rounded-lg py-2 px-4 text-white"
                 >{{ __('Preter')}}</a>
-                <a href="{{route('meetings.borrow.create', $meeting->id)}}"
+                 <a href="{{route('meetings.borrow.create', $meeting->id)}}"
                     class="bg-green-800 rounded-lg py-2 px-4 text-white"
                 >{{ __('Emprunter')}}</a>
             </div>
@@ -30,6 +30,7 @@
                         <x-table.head>Type</x-table.head>
                         
                         <x-table.head>Utilisateur</x-table.head>
+                        <x-table.head>Rubrique</x-table.head>
                     </tr>
                 </thead>
 
@@ -46,6 +47,9 @@
                             <x-table.data>
                                 <div>{{ $loan->user->username }}</div>
                             </x-table.data>
+                            <x-table.data>
+                                <div>{{ $loan->rubrique->name }}</div>
+                            </x-table.data>
                             
                         </tr> 
                     @endforeach
@@ -61,10 +65,13 @@
                             <x-table.data>
                                 <div>{{ $payment->user->username }}</div>
                             </x-table.data>
+                            <x-table.data>
+                                <div>{{ $payment->rubrique->name }}</div>
+                            </x-table.data>
                         </tr> 
                     @endforeach
 
-                    @foreach($cotisationsmeeting as $key => $cotisation)
+                    {{-- @foreach($cotisationsmeeting as $key => $cotisation)
                        <tr>
                             <x-table.data>
                                 <div>{{ $cotisation->amount }}</div>
@@ -76,7 +83,7 @@
                                 <div>{{ $cotisation->user->username }}</div>
                             </x-table.data>
                         </tr> 
-                    @endforeach
+                    @endforeach --}}
                     
                 </tbody>
 
@@ -85,7 +92,12 @@
             
         </div>
         <div class="flex justify-end items-center text-4xl">
-                <h2>Argent disponible : <span class="text-red-600">{{ $loantotal }}</span></h2>
+            <div>
+                 <h2>Balance Cotisation : <span class="text-red-600">{{ $balanceCotisation }}</span></h2>
+                 <h2>Balance Epargne : <span class="text-red-600">{{ $balanceEpargne }}</span></h2>
+                 <h2>Balance Fonds de Roulement : <span class="text-red-600">{{ $balanceFondsRoulement }}</span></h2>
+            </div>
+               
             </div>
     </section>
 

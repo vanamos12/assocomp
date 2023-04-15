@@ -6,11 +6,36 @@ use Carbon\Carbon;
 use App\Models\Loan;
 use App\Models\User;
 use App\Models\Meeting;
+use App\Models\Payment;
 use App\Models\Rubrique;
 use Illuminate\Support\Facades\Date;
 
 class Utils {
+    public static function balanceUser($company_id, $rubrique_id, $user_id){
+        $cotisetotal = Loan::where('loaned', '!=' , Loan::LOANED)
+        ->where('company_id', $company_id)
+        ->where('rubrique_id', $rubrique_id)
+        ->where('user_id', $user_id)
+        ->sum('amount');
+        $empruntetotal = Payment::where('status', Payment::ACTIF_STATUS)
+                        ->where('company_id', $company_id)
+                        ->where('rubrique_id', $rubrique_id)
+                        ->where('user_id', $user_id)
+                        ->sum('amount');
+        return $cotisetotal - $empruntetotal;
+    }
 
+    public static function balance($company_id, $rubrique_id){
+        $cotisetotal = Loan::where('loaned', '!=' , Loan::LOANED)
+        ->where('company_id', $company_id)
+        ->where('rubrique_id', $rubrique_id)
+        ->sum('amount');
+        $empruntetotal = Payment::where('status', Payment::ACTIF_STATUS)
+                        ->where('company_id', $company_id)
+                        ->where('rubrique_id', $rubrique_id)
+                        ->sum('amount');
+        return $cotisetotal - $empruntetotal;
+    }
     public static function getActiveRubriques($company_id){
         $dateNow = date('Y-m-d');
         return Rubrique::where('debut', '<=', $dateNow)
@@ -32,6 +57,26 @@ class Utils {
                         ->where('user_id', $user_id)
                         ->get();
         return Utils::loanTotalRemboursable($loans);
+    }
+    public static function getBalanceUser($user_id){
+        $cotisetotal = Loan::where('loaned', '!=' , Loan::LOANED)
+        ->where('user_id', $user_id)
+        ->sum('amount');
+        $empruntetotal = Payment::where('status', Payment::ACTIF_STATUS)
+                        ->where('user_id', $user_id)
+                        ->sum('amount');
+        return $cotisetotal - $empruntetotal;
+    }
+    public static function getCotiseTotal($company_id, $meeting_id){
+        $cotisetotal = Loan::where('loaned', '!=' , Loan::LOANED)
+                        ->where('company_id', $company_id)
+                        ->where('meeting_id', $meeting_id)
+                        ->sum('amount');
+        $empruntetotal = Payment::where('status', Payment::ACTIF_STATUS)
+        ->where('company_id', $company_id)
+        ->where('meeting_id', $meeting_id)
+        ->sum('amount');
+        return $cotisetotal-$empruntetotal;
     }
 
     public static function getLoanTotal($company_id){

@@ -32,7 +32,9 @@
                     <tr>
                         <x-table.head>Name</x-table.head>
                         <x-table.head>Username</x-table.head>
-                        <x-table.head>Bio</x-table.head>
+                        <x-table.head>Balance Cotisation</x-table.head>
+                        <x-table.head>Balance Epargne</x-table.head>
+                        <x-table.head>Balance Fonds de Roulement</x-table.head>
                         <x-table.head class="text-center">Fonction</x-table.head>
                     </tr>
                 </thead>
@@ -47,7 +49,13 @@
                                 <div>{{ $user->username()}}</div>
                             </x-table.data>
                             <x-table.data>
-                                <div>{{ $user->bio()}}</div>
+                                <div>{{ $user->balanceCotisation}}</div>
+                            </x-table.data>
+                            <x-table.data>
+                                <div>{{ $user->balanceEpargne}}</div>
+                            </x-table.data>
+                            <x-table.data>
+                                <div>{{ $user->balanceFondsRoulement}}</div>
                             </x-table.data>
                             <x-table.data>
                                 <div class="px-2 py-1 text-center text-gray-700 bg-green-200 rounded">

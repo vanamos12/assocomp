@@ -51,7 +51,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('dashboard/rubriques', [CotisationController::class, 'rubriqueList'])->name('rubriques');
     Route::get('dashboard/rubriques/create', [CotisationController::class, 'rubriqueCreate'])->name('rubriques.create');
     Route::post('dashboard/rubriques/store', [CotisationController::class, 'rubriqueStore'])->name('rubriques.store');
-    
+    Route::get('dashboard/rubriques/edit/{rubrique}', [CotisationController::class, 'rubriqueEdit'])->name('rubriques.edit');
+    Route::post('dashboard/rubriques/store/{rubrique}', [CotisationController::class, 'rubriqueEditStore'])->name('rubriques.editStore');
+
     Route::get('dashboard/companies/create', [CompanyController::class, 'create'])->name('companies.create');
     Route::post('dashboard/companies/store', [CompanyController::class, 'store'])->name('companies.store');
     

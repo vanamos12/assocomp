@@ -19,6 +19,7 @@ class CreatePaymentsTable extends Migration
             $table->float('amount');
             $table->foreignId('meeting_id')->constrained('meetings');
             $table->foreignId('company_id')->constrained('companies');
+            $table->foreignId('rubrique_id')->constrained('rubriques');
             $table->string('status');
             $table->date('creation');
             $table->date('nextpaymentlimit');

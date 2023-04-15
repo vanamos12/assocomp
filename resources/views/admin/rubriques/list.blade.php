@@ -42,7 +42,7 @@
                             </x-table.data>
                             <x-table.data>
                                 <div class="px-2 py-1 text-center text-gray-700 bg-green-200 rounded">
-                                    <a href="{{ route('rubriques.create')}}">Voir</a>
+                                    <a href="{{ route('rubriques.edit', $rub->id)}}">Editer</a>
                                 </div>
                             </x-table.data>
                         </tr> 

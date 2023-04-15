@@ -18,6 +18,7 @@ class Payment extends Model
         'user_id',
         'meeting_id',
         'company_id',
+        'rubrique_id',
         'amount',
         'status',
         'creation',
@@ -27,9 +28,14 @@ class Payment extends Model
 
     protected $with = [
         'user',
+        'rubrique'
     ];
 
     public function user():BelongsTo{
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function rubrique():BelongsTo{
+        return $this->belongsTo(Rubrique::class, 'rubrique_id');
     }
 }

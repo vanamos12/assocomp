@@ -21,6 +21,7 @@ class CreateLoansTable extends Migration
             $table->date('creation');
             $table->foreignId('meeting_id')->constrained('meetings');
             $table->foreignId('company_id')->constrained('companies');
+            $table->foreignId('rubrique_id')->constrained('rubriques');
             $table->string('loaned')->default(Loan::NOT_LOANED);
             $table->string('refunded')->default(Loan::NOT_REFUNDED);
             $table->text('textloaned')->default('');
@@ -39,5 +40,6 @@ class CreateLoansTable extends Migration
     public function down()
     {
         Schema::dropIfExists('loans');
+
     }
 }

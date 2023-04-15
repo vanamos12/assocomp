@@ -41,6 +41,7 @@ class User extends Authenticatable
         'company_id',
         'name',
         'email',
+        'balance',
         'password',
         'fonction',
         'slug',

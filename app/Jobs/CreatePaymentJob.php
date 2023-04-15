@@ -23,6 +23,7 @@ class CreatePaymentJob implements ShouldQueue
     private $user;
     private $meeting;
     private $amount;
+    private $rubrique;
     private $dateCreation;
     private $nextPaymentLimit;
     private $total;
@@ -35,6 +36,7 @@ class CreatePaymentJob implements ShouldQueue
         User $user,
         Meeting $meeting,
         int $amount,
+        string $rubrique,
         Carbon $dateCreation,
         Carbon $nextPaymentLimit,
         $total
@@ -44,6 +46,7 @@ class CreatePaymentJob implements ShouldQueue
         $this->user = $user;
         $this->meeting = $meeting;
         $this->amount = $amount;
+        $this->rubrique = $rubrique;
         $this->dateCreation = $dateCreation;
         $this->nextPaymentLimit = $nextPaymentLimit;
         $this->total = $total;
@@ -52,6 +55,7 @@ class CreatePaymentJob implements ShouldQueue
     public static function fromRequest(User $user, Meeting $meeting, Request $request){
         $dateCreation = Carbon::createFromFormat('Y-m-d', $request->get('creation'));
         $amount = (int) $request->get('amount');
+        $rubrique =  $request->get('rubrique');
         $tab = Utils::calculatePayment($dateCreation, $amount);
         $nextPaymentLimit = $tab['nextPaymentLimit'];
         $total = $amount + $tab['totalInterest'];
@@ -60,6 +64,7 @@ class CreatePaymentJob implements ShouldQueue
             $user,
             $meeting,
             $amount,
+            $rubrique,
             $dateCreation,
             $nextPaymentLimit,
             $total,
@@ -82,7 +87,8 @@ class CreatePaymentJob implements ShouldQueue
             'creation' => $this->dateCreation,
             'nextpaymentlimit' => $this->nextPaymentLimit,
             'total' => $this->total,
-            'company_id' => auth()->user()->company_id
+            'company_id' => auth()->user()->company_id,
+            'rubrique_id' => $this->rubrique,
         ]);
 
         $payment->save();

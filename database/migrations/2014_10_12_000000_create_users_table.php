@@ -19,6 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique()->default('');
             $table->string('slug');
             $table->integer('fonction')->default(6);
+            $table->float('balanceCotisation')->default(0);
+            $table->float('balanceEpargne')->default(0);
+            $table->float('balanceFondsRoulement')->default(0);
             $table->text('bio')->default('');
             $table->string('email')->unique();
             $table->boolean('canconnect')->default(false);

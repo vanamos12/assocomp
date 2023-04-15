@@ -24,6 +24,7 @@ class Loan extends Model
         'creation',
         'meeting_id',
         'company_id',
+        'rubrique_id',
         'loaned',
         'textloaned',
         'partloanamount'
@@ -31,9 +32,14 @@ class Loan extends Model
 
     protected $with = [
         'user',
+        'rubrique',
     ];
 
     public function user():BelongsTo{
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function rubrique():BelongsTo{
+        return $this->belongsTo(Rubrique::class, 'rubrique_id');
     }
 }
